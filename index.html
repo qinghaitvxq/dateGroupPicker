@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+    <script src="js/dateGroupPicker.js"></script>
+
+    <style>
+        #dategrouppicker{
+            float:left;
+            border:solid 1px blue;
+        }
+        #childpicker{
+            float:left;
+        }
+        #childpicker >div{
+            float:left;
+            margin:5px;
+        }
+        .toLeft,.toRight{
+            width:30px;
+            height:50px;
+            border-radius: 3px;
+            background-color: #e9e9e9;
+            float: left;
+            text-align: center;
+            line-height: 50px;
+
+        }
+    </style>
+
+</head>
+<body>
+<h2>
+    日期组选择器
+</h2>
+<div id="dategrouppicker">
+</div>
+
+</body>
+<script>
+
+$(document).ready(function () {
+    $("#dategrouppicker").dateGroupPicker({
+        pickernum:2,
+        monthNames: [ "1月","2月","2月","4月","5月","6月",
+            "7月","8月","9月","10月","11月","12月" ],
+    });
+});
+</script>
+</html>
