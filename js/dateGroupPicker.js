@@ -10,7 +10,7 @@
                              <div id="childpicker"></div>
                              <div class="toRight">后</div>
                              <div>
-                                <textarea class="date_area"></textarea>
+                                <textarea class="date_area" readonly="readonly"></textarea>
                              </div>`);
             },
             initPickerHtml:function (options) {
@@ -40,35 +40,72 @@
             EventBind:function () {
                 let _this=this;
                 this.on("click",".toLeft,.toRight",function (e) {
-                    // methods.initHtml.call(_this,options);
+
                     methods.initPickerHtml.call(_this,options);
                     let grouppicker=_this.find("#childpicker div");
                     if(e.target.className=="toLeft"){
-                        month=month-1;
+                        month=month-2;
+                        if(month<0){
+                            year=year-1;
+                            month=month+12;
+                        }
+
                     }else if(e.target.className=="toRight"){
-                        month=month+1;
+                        month=month+2;
+                        if(month>11){
+                            year=year+1;
+                            month=month-12;
+                        }
                     }
                     methods.initGroupDate.call(_this,new Date(year,month,day));
+                    methods.markSelectedDate.call(_this);
                 });
             },
-            onSelect:function (dateText,obj) {
-                dateRange=dateRange.concat(`;${dateText}`);
-                let currentDay=obj.currentDay;
-                let currentTd=$(`#${obj.id}`).find("a").filter(function (index) {
+            getTargetDate:function (year,month,day) {
 
-                    // console.log($(this).text());
-                    // return $(this).text()===currentDay;
-
-                    if($(this).text()===currentDay){
-                        console.log('check this');
-                        console.log(this);
-                      $(this).html("");
-                    }
+                let cTarget= this.find(`td[data-month=${month}][data-year=${year}] a`).filter(function () {
+                    return $(this).text()==day;
                 });
+                return cTarget;
+            },
+            markSelectedDate:function () {
 
+                //this object refers to the jquery obj whick invoke this plugins
+                let _this=this;
+                $.each($(this).data("value"),function (i,item) {
+                    let itemArr=item.split("-"),
+                        syear=itemArr[0],
+                        smonth=itemArr[1]-1,
+                        sday=itemArr[2];
+                    let cTarget=methods.getTargetDate.call(_this,syear,smonth,sday);
+                    cTarget.addClass("mark");
+                });
+                $(this).find(".date_area").text($(this).data("value").join(";"));
+            },
+            handleSelectedDate:function (cyear,cmonth,cday,id) {
 
-                this.find(".date_area").text(dateRange);
+                //this object refers to the jquery obj whick invoke this plugins
+                let _this=this;
 
+                this.find("a").removeClass("mark");
+                let dateStr=`${cyear}-${cmonth+1}-${cday}`;
+                let exist=$.inArray(dateStr,$(this.data("value")));
+
+                if(exist>=0){
+                    $(this).data("value").splice(exist,1);
+                }else {
+                    $(this).data("value").push(dateStr);
+                }
+
+                methods.markSelectedDate.call(this);
+
+            },
+             onSelect:function (dateText,obj) {
+                let cday=obj.selectedDay,
+                    cmonth=obj.selectedMonth,
+                    cyear=obj.selectedYear,
+                    id=obj.id;
+                 setTimeout( methods.handleSelectedDate.bind(this,cyear,cmonth,cday,id),0);
             }
         };
 
@@ -82,11 +119,11 @@
             year=iDate.getFullYear(),
             month=iDate.getMonth(),
             day=iDate.getDate();
-        let dateRange="";
+
+        this.data("value",[]);
 
         methods.initHtml.call(this);
         methods.initPickerHtml.call(this,options);
-
         methods.initGroupDate.call(this,iDate);
         methods.EventBind.call(this);
 

@@ -21,7 +21,7 @@
         }
         .toLeft,.toRight{
             width:30px;
-            height:50px;
+            height:100%;
             border-radius: 3px;
             background-color: #e9e9e9;
             float: left;
@@ -33,6 +33,10 @@
             width:100%;
             height:100px;
             border:solid 1px #e9e9e9;
+            background-color: #e9e9e9;
+        }
+        .mark{
+            background-color: red !important;
         }
     </style>
 
@@ -50,7 +54,7 @@
 $(document).ready(function () {
     $("#dategrouppicker").dateGroupPicker({
         pickernum:2,
-        monthNames: [ "1月","2月","2月","4月","5月","6月",
+        monthNames: [ "1月","2月","3月","4月","5月","6月",
             "7月","8月","9月","10月","11月","12月" ],
     });
 });
