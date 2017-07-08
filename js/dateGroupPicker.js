@@ -35,6 +35,7 @@
                     options.defaultDate=new Date(year,month,day);
                     $.fn.datepicker.call($(grouppicker[i]),options);
                     month++;
+                    //options.minDate=options.minDate;
                 }
             },
             EventBind:function () {
@@ -43,8 +44,10 @@
 
                     methods.initPickerHtml.call(_this,options);
                     let grouppicker=_this.find("#childpicker div");
+
                     if(e.target.className=="toLeft"){
                         month=month-2;
+
                         if(month<0){
                             year=year-1;
                             month=month+12;
@@ -60,6 +63,21 @@
                     methods.initGroupDate.call(_this,new Date(year,month,day));
                     methods.markSelectedDate.call(_this);
                 });
+            },
+            beforeShowDay:function (date) {
+                let byear=date.getFullYear(),
+                    bmonth=date.getMonth(),
+                    bday=date.getDate(),
+                    dayStr=`${byear}-${bmonth+1}-${bday}`;
+
+                if(($.inArray(dayStr,this.data("value"))>=0) && date<new Date()){
+                    return [false,"mark"]
+                }
+                if(date< new Date()){
+                    return [false,""]
+                }
+                return [true,""];
+
             },
             getTargetDate:function (year,month,day) {
 
@@ -111,7 +129,8 @@
 
         let defaults={
             pickernum:2,
-            onSelect:methods.onSelect.bind(this)
+            onSelect:methods.onSelect.bind(this),
+            beforeShowDay:methods.beforeShowDay.bind(this)
         };
         options=$.extend(defaults,options);
 
@@ -120,12 +139,18 @@
             month=iDate.getMonth(),
             day=iDate.getDate();
 
-        this.data("value",[]);
+        if(options.value && Array.isArray(options.value)){
+            this.data("value",options.value);
+        }
+        else{
+            this.data("value",[]);
+        }
 
         methods.initHtml.call(this);
         methods.initPickerHtml.call(this,options);
         methods.initGroupDate.call(this,iDate);
         methods.EventBind.call(this);
+        methods.markSelectedDate.call(this);
 
     }
 })(jQuery);

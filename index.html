@@ -35,9 +35,20 @@
             border:solid 1px #e9e9e9;
             background-color: #e9e9e9;
         }
-        .mark{
-            background-color: red !important;
+
+        .ui-state-active{
+            background-color: #f6f6f6 !important;
+            border:1px solid #c5c5c5!important;
+            font-weight: normal;
+            color: black !important;
         }
+
+        .mark{
+            background-color: #d06767 !important;
+            border:solid 1px #d06767 !important;
+        }
+
+
     </style>
 
 </head>
@@ -56,6 +67,7 @@ $(document).ready(function () {
         pickernum:2,
         monthNames: [ "1月","2月","3月","4月","5月","6月",
             "7月","8月","9月","10月","11月","12月" ],
+        value:['2017-6-6','2017-6-7','2017-7-6','2017-8-16','2017-8-25','2017-8-18']
     });
 });
 </script>
