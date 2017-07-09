@@ -2145,6 +2145,7 @@ $.fn.datepicker = function( options ) {
 		return $.datepicker[ "_" + options + "Datepicker" ].
 			apply( $.datepicker, [ this[ 0 ] ].concat( otherArgs ) );
 	}
+
 	return this.each( function() {
 		typeof options === "string" ?
 			$.datepicker[ "_" + options + "Datepicker" ].

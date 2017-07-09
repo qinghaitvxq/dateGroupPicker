@@ -9,13 +9,13 @@
     <script src="js/dateGroupPicker.js"></script>
 
     <style>
-        #dategrouppicker{
+        #newpicker,#editpicker{
             float:left;
         }
-        #childpicker{
+        .childpicker{
             float:left;
         }
-        #childpicker >div{
+        .childpicker >div{
             float:left;
             margin:5px;
         }
@@ -27,7 +27,10 @@
             float: left;
             text-align: center;
             line-height: 50px;
-
+            margin-top: 6px;
+            color: #515151;
+            cursor:pointer;
+            font-size: larger;
         }
         .date_area{
             width:100%;
@@ -56,19 +59,29 @@
 <h2>
     日期组选择器
 </h2>
-<div id="dategrouppicker">
+<div id="newpicker"></div>
+<!--<div id="newpicker2"></div>-->
+ <div id="editpicker"></div>
+
+<input type="button" value="test" id="btn">
 </div>
 
 </body>
 <script>
 
 $(document).ready(function () {
-    $("#dategrouppicker").dateGroupPicker({
-        pickernum:2,
-        monthNames: [ "1月","2月","3月","4月","5月","6月",
-            "7月","8月","9月","10月","11月","12月" ],
-        value:['2017-6-6','2017-6-7','2017-7-6','2017-8-16','2017-8-25','2017-8-18']
+    $("#btn").click(function () {
+       console.log($("#newpicker").data("value"));
     });
+    $("#newpicker,#editpicker").dateGroupPicker({
+        pickernum:2,
+        value:['2017-8-15']
+    });
+
+//    $("#editpicker").dateGroupPicker({
+//        pickernum:2,
+//        value:['2017-8-15']
+//    });
 });
 </script>
 </html>
