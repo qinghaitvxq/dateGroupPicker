@@ -49,6 +49,7 @@
         .mark{
             background-color: #d06767 !important;
             border:solid 1px #d06767 !important;
+            color:white !important;
         }
 
 
@@ -59,29 +60,35 @@
 <h2>
     日期组选择器
 </h2>
-<div id="newpicker"></div>
+<!--<div id="newpicker"></div>-->
 <!--<div id="newpicker2"></div>-->
  <div id="editpicker"></div>
 
-<input type="button" value="test" id="btn">
+<!--<input type="button" value="test" id="btn">-->
 </div>
 
 </body>
 <script>
 
 $(document).ready(function () {
-    $("#btn").click(function () {
-       console.log($("#newpicker").data("value"));
-    });
+//    $("#btn").click(function () {
+//       console.log($("#newpicker").data("value"));
+//    });
     $("#newpicker,#editpicker").dateGroupPicker({
-        pickernum:2,
-        value:['2017-7-1','2017-7-15','2017-8-15']
+        pickernum:3,
+        value:['2017-7-1',
+            '2017-8-15',
+            '2017-8-16',
+            '2017-8-17',
+            '2017-8-26',
+            '2017-9-1',
+            '2017-10-5',
+            '2017-10-6',
+            '2017-10-9',
+            '2017-11-16'
+        ]
     });
 
-//    $("#editpicker").dateGroupPicker({
-//        pickernum:2,
-//        value:['2017-8-15']
-//    });
 });
 </script>
 </html>
